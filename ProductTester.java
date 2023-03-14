@@ -5,9 +5,8 @@ import java.util.Scanner;
 public class ProductTester {
 
 	public static void main(String[] args) {
-		int tempNumber, tempQty, maxSize = -1;
-		double temPrice;
-		String tempName;
+		int maxSize = -1;
+		
 		Scanner scan = new Scanner(System.in);
 
 		// Catches missInputs and reads the number of products to be added
@@ -19,7 +18,6 @@ public class ProductTester {
 				maxSize = scan.nextInt();
 
 				if (maxSize < 0) {
-
 					throw new Exception("Valor incorreto inserido");
 
 				} else if (maxSize == 0) {
@@ -38,11 +36,35 @@ public class ProductTester {
 
 			}
 		}
-
+	
 		// Catches missInputs and reads the values of the products
 		Product produtos[] = new Product[maxSize];
+		
+		addToInventory(produtos, scan);
+		
+		scan.close();
+		
+		displayInventory(produtos);
+		
+	}
+	
+	
+	public static void displayInventory(Product[] produtos) {
+		// Displays the products
 
-		for (int k = 0; k < (maxSize); k++) {
+		for (Product p : produtos) {
+			System.out.println(p.toString());
+
+		}
+	}
+	
+	
+	public static void addToInventory(Product[] produtos, Scanner scan) {
+		int tempNumber, tempQty;
+		double temPrice;
+		String tempName;
+		
+		for (int k = 0; k < (produtos.length); k++) {
 			System.out.println("PRODUTO " + (k + 1) + "\n");
 
 			System.out.println("  digite o nome do produto");
@@ -69,6 +91,7 @@ public class ProductTester {
 							temPrice = scan.nextDouble();
 							
 							j = true;
+							i = true;
 							
 							produtos[k] = new Product(tempName, tempQty, tempNumber, temPrice);
 
@@ -79,21 +102,7 @@ public class ProductTester {
 						}
 					}
 				}
-				i = true;
 			}
-		}
-		scan.close();
-		displayInventory(produtos);
-
-		
-	}
-	public static void displayInventory(Product[] produtos){
-		// Displays the products
-
-		for (Product p : produtos) {
-			System.out.println(p.toString());
-
-
-		}
+		} 
 	}
 }
