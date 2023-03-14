@@ -59,11 +59,8 @@ public class ProductTester {
 
 							int qty = scan.nextInt();
 
-							if (qty < 0) {
-								produtos[numeroProdutoChange-1].deductToQuantity(qty);
-							} else {
-								produtos[numeroProdutoChange-1].addToQuantity(qty);
-							}
+							produtos[numeroProdutoChange-1].changeToQuantity(qty);
+							
 							l = true;
 							break;
 						} catch (Exception e) {
