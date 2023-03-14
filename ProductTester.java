@@ -19,7 +19,6 @@ public class ProductTester {
 				maxSize = scan.nextInt();
 
 				if (maxSize < 0) {
-					scan.nextLine();
 
 					throw new Exception("Valor incorreto inserido");
 
@@ -84,10 +83,17 @@ public class ProductTester {
 			}
 		}
 		scan.close();
+		displayInventory(produtos);
 
+		
+	}
+	public static void displayInventory(Product[] produtos){
 		// Displays the products
+
 		for (Product p : produtos) {
 			System.out.println(p.toString());
+
+
 		}
 	}
 }
