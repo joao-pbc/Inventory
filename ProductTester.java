@@ -5,40 +5,9 @@ import java.util.Scanner;
 public class ProductTester {
 
 	public static void main(String[] args) {
-		int maxSize = -1;
-		
 		Scanner scan = new Scanner(System.in);
-
-		// Catches missInputs and reads the number of products to be added
-		for (Boolean i = false; i == false;) {
-			try {
-				System.out.println("Insira o número de produtos que gostaria de adicionar\r\n"
-						+ " Insira 0 (zero) se não quiser adicionar produtos:");
-
-				maxSize = scan.nextInt();
-
-				if (maxSize < 0) {
-					throw new Exception("Valor incorreto inserido");
-
-				} else if (maxSize == 0) {
-					System.out.println("Não há produtos a serem inseridos");
-
-					return;
-
-				} else {
-					i = true;
-				}
-
-			} catch (Exception e) {
-				System.out.println("valor inválido! tente novamente");
-
-				scan.nextLine();
-
-			}
-		}
 	
-		// Catches missInputs and reads the values of the products
-		Product produtos[] = new Product[maxSize];
+		Product produtos[] = new Product[getNumProducts(scan)];
 		
 		addToInventory(produtos, scan);
 		
@@ -58,8 +27,9 @@ public class ProductTester {
 		}
 	}
 	
-	
 	public static void addToInventory(Product[] produtos, Scanner scan) {
+		// Catches missInputs and reads the values of the products
+		
 		int tempNumber, tempQty;
 		double temPrice;
 		String tempName;
@@ -104,5 +74,38 @@ public class ProductTester {
 				}
 			}
 		} 
+	}
+
+	public static int getNumProducts(Scanner scan) {
+		// Catches missInputs and reads the number of products to be added
+		
+		int maxSize = -1;
+		
+		for (Boolean i = false; i == false;) {
+			try {
+				System.out.println("Insira o número de produtos que gostaria de adicionar\r\n"
+						+ " Insira 0 (zero) se não quiser adicionar produtos:");
+
+				maxSize = scan.nextInt();
+
+				if (maxSize < 0) {
+					throw new Exception("Valor incorreto inserido");
+
+				} else if (maxSize == 0) {
+					System.out.println("Não há produtos a serem inseridos");
+					return 0;
+
+				} else {
+					i = true;
+				}
+
+			} catch (Exception e) {
+				System.out.println("valor inválido! tente novamente");
+
+				scan.nextLine();
+
+			}
+		}
+		return maxSize;
 	}
 }
