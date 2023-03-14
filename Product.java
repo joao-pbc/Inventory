@@ -1,5 +1,7 @@
 package inventory;
 
+
+
 public class Product {
 	//declaring variables
 	String name;
@@ -7,19 +9,21 @@ public class Product {
 	double valor;
 	boolean  ativo = true;
 	
+	
 	//empty constructor
-	public Product() {
+ 	public Product() {
 
 	}
 	
 	//constructor with parameters
-	public Product(String name, int quantidade, int numero, double valor) {
+	public Product(String name, int quantidade, double valor) {
 		this.name = name;
 		this.quantidade = quantidade;
 		this.valor = valor;
-		this.numero = numero;
 	}
 
+	
+	
 	//Setter and Getter for variable name
 	public String getName() {
 		return name;
@@ -72,4 +76,16 @@ public class Product {
 	public double price() {
 		return (double)quantidade*valor;
 	}
+
+	//This method changes the quantity of certain item
+	public void addToQuantity(int quantity) {
+		quantidade += quantity;
+		
+	}
+	public void deductToQuantity(int quantity) {
+		quantidade += quantity;
+		
+	}
+	
+	
 }
