@@ -78,14 +78,11 @@ public class Product {
 	}
 
 	//This method changes the quantity of certain item
-	public void addToQuantity(int quantity) {
+	public void changeToQuantity(int quantity) {
 		quantidade += quantity;
 		
 	}
-	public void deductToQuantity(int quantity) {
-		quantidade += quantity;
-		
-	}
+	
 	
 	
 }

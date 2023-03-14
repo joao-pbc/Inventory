@@ -6,10 +6,21 @@ public class ProductTester {
 
 	public static void main(String[] args) {
 		Product produtos[] = {};
-		Boolean i=false;
+		
 		Scanner scan = new Scanner(System.in);
 	
+		executeMenu(produtos, scan);
 		
+		scan.close();
+		
+		System.out.println("\n Programa encerrado!");
+		
+		return;
+		
+	}
+	
+	public static void executeMenu(Product[] produtos, Scanner scan) {
+		Boolean i=false;
 		for(Boolean m = false; m==false;) {
 			
 			do {
@@ -25,7 +36,7 @@ public class ProductTester {
 				case 0:
 					System.out.println("Encerrando programa");
 					m = true;
-					break;
+					return;
 				case 1:
 					try {
 						if(produtos.length == 0) {
@@ -74,13 +85,7 @@ public class ProductTester {
 					break;
 					
 				case 4:
-					System.out.println("\nEscolha um desses produtos:\n");
 					
-					for(Product p : produtos) {
-						System.out.println(p.getNumero() + " " + p.getName());
-						
-						
-					}
 					for(Boolean l = false;l==false;) {
 						try {
 							if (produtos.length == 0) {
@@ -89,6 +94,14 @@ public class ProductTester {
 								
 							}
 							int nextStatus = 0;
+							
+							System.out.println("\nEscolha um desses produtos:\n");
+							
+							for(Product p : produtos) {
+								System.out.println(p.getNumero() + " " + p.getName());
+								
+							}
+							
 							int numeroProdutoStatus = getProductNumber(produtos, scan);
 							
 							System.out.println(
@@ -121,13 +134,7 @@ public class ProductTester {
 				}
 			}while(i == false);
 		}
-		
-		
-		scan.close();
-		return;
-		
 	}
-	
 	
 	public static void displayInventory(Product[] produtos) {
 		// Displays the products
