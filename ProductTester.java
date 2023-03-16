@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class ProductTester {
 
 	public static void main(String[] args) {
+		
 		Product produtos[] = {};
 		
 		Scanner scan = new Scanner(System.in);
@@ -21,10 +22,12 @@ public class ProductTester {
 	
 	public static void executeMenu(Product[] produtos, Scanner scan) {
 		Boolean i=false;
+		
 		for(Boolean m = false; m==false;) {
 			
 			do {
 				i = false;
+				
 				System.out.println(
 						"1. Exibir Inventário\r\n"
 						+ "2. Adicionar Estoque\r\n"
@@ -32,27 +35,42 @@ public class ProductTester {
 						+ "4. Mudar Status do Produto\r\n"
 						+ "0. Sair\r\n"
 						+ "Insira uma opção de menu:"); 
+				
 				switch(getMenuOption(scan)){
 				case 0:
+					
 					System.out.println("Encerrando programa");
+					
 					m = true;
+					
 					return;
+					
 				case 1:
 					try {
 						if(produtos.length == 0) {
 							throw new Exception();
+							
 						}
 						displayInventory(produtos);
+						
 						i = true;
+						
 					} catch(Exception e) {
 						System.out.println("ainda não foram adicionados produtos!");
+						
 					}
 					break;
+					
 				case 2:
+					
 					produtos = new Product[getNumProducts(scan)];
+					
 					addToInventory(produtos, scan);
+					
 					i = true;
+					
 					break;
+					
 				case 3:
 					for(Boolean l = false;l==false;) {
 						try {
@@ -65,6 +83,10 @@ public class ProductTester {
 							}
 
 							int numeroProdutoChange = getProductNumber(produtos, scan);
+							
+							if (numeroProdutoChange == -1) {
+								break;
+							}
 
 							System.out.println("Escreva a quantidade a ser inserida");
 
@@ -147,10 +169,31 @@ public class ProductTester {
 	
 	public static void addToInventory(Product[] produtos, Scanner scan) {
 		// Catches missInputs and reads the values of the products
+		int tempQty, tempClassification, tempAlbmMusicNmbr, type = 0;
+		double temPrice, tempDuration;
+		String tempName, tempStudio, tempArtist, tempSeal;
 		
-		int tempQty;
-		double temPrice;
-		String tempName;
+		for (Boolean n = false; n == false;) {
+			try {
+				System.out.println("\nSelecione um: \n" + "1. CD\n" + "2. DVD\n");
+
+				type = scan.nextInt();
+
+				if ((type > 2) && (type < 1)) {
+					throw new Exception();
+
+				} else {
+
+					n = true;
+
+				}
+				
+			}catch(Exception e) {
+				System.out.println("Digite um valor dentro das opcoes");
+				scan.nextLine();
+			}
+			
+		}
 		
 		for (int k = 0; k  < (produtos.length); k++) {
 			System.out.println("PRODUTO " + (k+1) + "\n");
@@ -171,15 +214,49 @@ public class ProductTester {
 						try {
 							System.out.println("  digite a quantidade do produto");
 							tempQty = scan.nextInt();
-
+							
 							System.out.println("  digite o preco do produto");
 							temPrice = scan.nextDouble();
 							
-							j = true;
-							i = true;
+							if(type == 1) {
+								System.out.println("  digite a classificacao do produto");
+								tempClassification = scan.nextInt();
+								
+								System.out.println("  digite a duracao do produto");
+								tempDuration = scan.nextDouble();
+
+								System.out.println("  digite o Estudio do produto");
+								tempStudio = scan.next();
+								
+
+								j = true;
+								i = true;
+								
+								produtos[k] = new Cd(tempName, tempQty, temPrice, tempDuration, tempClassification, tempStudio);
+								produtos[k].numero = k+1;
+								
+							} else {
+								System.out.println("  digite o numero da musica no album do produto");
+								tempAlbmMusicNmbr = scan.nextInt();
+								
+								System.out.println("  digite o artista do produto");
+								tempArtist = scan.next();
+
+								System.out.println("  digite o selo do produto");
+								tempSeal = scan.next();
+								
+								System.out.println("  digite o preco do produto");
+								temPrice = scan.nextDouble();
+								
+								j = true;
+								i = true;
+								
+								produtos[k] = new Dvd(tempName, tempQty, temPrice, tempArtist, tempSeal, tempAlbmMusicNmbr);
+								produtos[k].numero = k+1;
+							}
 							
-							produtos[k] = new Product(tempName, tempQty, temPrice);
-							produtos[k].numero = k+1;
+							
+						
 
 						} catch (Exception f) {
 							System.out.println("\n \n \n Insira um número válido \n");
@@ -250,14 +327,17 @@ public class ProductTester {
 				option = scan.nextInt();
 				if((option > produtos.length)||(option < 0)) {
 					throw new Exception();
+				}else if(produtos[option-1].ativo==false){
+					System.out.println("\nlinha descontinuada!\n");
+					return -1;
 				}
 				i = true;
+				
 			} catch(Exception e) {
-				System.out.println("Valor inválido!");
+				System.out.println("Valor inválido");
 				scan.nextLine();
 			}
 		}
 		return produtos[option-1].numero;
 	}
-
 }
