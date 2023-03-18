@@ -8,18 +8,8 @@ public abstract class Product {
 	int quantidade, numero;
 	double valor;
 	boolean  ativo = true;
-	static int totalOfProducts = 0;
 	
 	
-	//Getter for static variable totalOfProducts
-	public static int getTotalOfProducts() {
-		return totalOfProducts;
-	}
-
-	//Setter for static variable totalOfProducts
-	public static void setTotalOfProducts(int totalOfProducts) {
-		Product.totalOfProducts = totalOfProducts;
-	}
 
 	//constructor with parameters
 	public Product(String name, int quantidade, double valor) {
