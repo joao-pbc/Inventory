@@ -2,7 +2,7 @@ package inventory;
 
 
 
-public class Product {
+public abstract class Product {
 	//declaring variables
 	String name;
 	int quantidade, numero;
