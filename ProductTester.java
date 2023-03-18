@@ -355,8 +355,6 @@ public class ProductTester {
 								i = true;
 								
 								array[k] = new Cd(tempName, tempQty, temPrice, tempDuration, tempClassification, tempStudio);
-								array[k].numero = Product.getTotalOfProducts()+1;
-								Product.setTotalOfProducts(Product.getTotalOfProducts()+1);;
 								
 							} else {
 								System.out.println("  digite o numero da musica no album do produto");
@@ -375,8 +373,7 @@ public class ProductTester {
 								i = true;
 								
 								array[k] = new Dvd(tempName, tempQty, temPrice, tempArtist, tempSeal, tempAlbmMusicNmbr);
-								array[k].numero = Product.getTotalOfProducts()+1;
-								Product.setTotalOfProducts(Product.getTotalOfProducts()+1);;
+							
 							}
 							
 							
@@ -391,6 +388,11 @@ public class ProductTester {
 				}
 			}
 		} 
+		int f = 1;
+		for(Product p : array) {
+			p.setNumero(f);
+			f++;
+		}
 	}
 
 	public static int getNumProducts(Scanner scan) {
