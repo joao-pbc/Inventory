@@ -1,5 +1,7 @@
 package inventory;
-
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ProductTester {
@@ -19,23 +21,24 @@ public class ProductTester {
 	}
 	
 	public static void executeMenu(Scanner scan) {
-		Boolean i=false;
+		boolean i=false;
 		int x = 0;
 		int emptyArray = -1;
 		
-		Product produtos[] = {};
+		Product[] produtos = {};
 		Product[] newArray = {};
 		
-		for(Boolean m = false; m==false;) {
+		for(boolean m = false; true;) {
 			
 			do {
 				i = false;
 				
 				System.out.println(
-						"1. Exibir Inventário\r\n"
+						  "1. Exibir Inventário\r\n"
 						+ "2. Adicionar Estoque\r\n"
 						+ "3. Modificar quantidade de produto \r\n"
 						+ "4. Mudar Status do Produto\r\n"
+						+ "5. Imprimir para arquivo .txt\r\n"
 						+ "0. Sair\r\n"
 						+ "Insira uma opção de menu:"); 
 				
@@ -126,7 +129,7 @@ public class ProductTester {
 					
 				
 				case 3:
-					for(Boolean l = false;l==false;) {
+					for(boolean l = false; !l;) {
 						try {
 							emptyArray = getEmptyArray(produtos, newArray);
 							
@@ -185,7 +188,7 @@ public class ProductTester {
 					break;
 					
 				case 4:
-					for(Boolean l = false;l==false;) {
+					for(boolean l = false; !l;) {
 						try {
 							int nextStatus = 0;
 							int numeroProdutoStatus;
@@ -213,18 +216,18 @@ public class ProductTester {
 									switch (nextStatus) {
 									case 1:
 										produtos[numeroProdutoStatus - 1].setAtivo(true);
-										
+
 										l = true;
-										
+
 										break;
-										
+
 									case 2:
 										produtos[numeroProdutoStatus - 1].setAtivo(false);
-										
+
 										l = true;
-										
+
 										break;
-										
+
 									}
 								}
 							case 3:
@@ -240,9 +243,11 @@ public class ProductTester {
 								numeroProdutoStatus = getProductNumber(newArray, scan);
 								
 								System.out.println(
-										"\n Escolha o status: \n"
-										+"1 - Ativo \n"
-										+"2 - Desativado \n");
+                                """
+                                Escolha o status:\s
+                                1 - Ativo\s
+                                2 - Desativado\s
+                                """);
 								
 								nextStatus = scan.nextInt();
 								
@@ -250,32 +255,62 @@ public class ProductTester {
 									throw new Exception();
 									
 								} else {
-									switch(nextStatus) {
-									case 1:
-										newArray[numeroProdutoStatus-1].setAtivo(true);
-										l = true;
-										
-										break;
-										
-									case 2:
-										newArray[numeroProdutoStatus-1].setAtivo(false);
-										l = true;
-										
-										break;
-										
+									switch (nextStatus) {
+										case 1:
+											newArray[numeroProdutoStatus - 1].setAtivo(true);
+											l = true;
+
+											break;
+
+										case 2:
+											newArray[numeroProdutoStatus - 1].setAtivo(false);
+											l = true;
+
+											break;
+
 									}
+
 								}
+
 							}
-							
+
 						} catch(Exception e){
 							System.out.println("Digite novamente");
 							scan.nextLine();
 							
 						}
 					}
-					
+				case 5:
+
+					try {
+						emptyArray = getEmptyArray(produtos, newArray);
+						BufferedWriter writer = new BufferedWriter(new FileWriter("Impresso.txt"));
+						switch(emptyArray)  {
+							case 1:
+								throw new Exception();
+
+							case 2:
+								writer.write(printInventory(produtos));
+								writer.close();
+								break;
+
+							case 3:
+								writer.write(printInventory(newArray));
+								writer.close();
+								break;
+						}
+
+						i = true;
+
+					} catch(IOException b){
+						b.printStackTrace();
+
+					} catch(Exception e) {
+						System.out.println("ainda não foram adicionados produtos!");
+
+					}
 				}
-			}while(i == false);
+			}while(!i);
 		}
 	}
 	
@@ -286,6 +321,15 @@ public class ProductTester {
 			System.out.println(p.toString());
 
 		}
+	}
+	public static String printInventory(Product[] produtos) {
+		// Inserts the products description in a variable
+		StringBuilder string = new StringBuilder();
+		for (Product p : produtos) {
+			string.append(p.toString());
+
+		}
+		return string.toString();
 	}
 	
 	public static void addToInventory(Product[] array, Scanner scan, int numToAdd) {
@@ -433,7 +477,7 @@ public class ProductTester {
 		for(Boolean i = false; i==false;) {
 			try {
 				option = scan.nextInt();
-				if ((option < 0) || (option > 4)) {
+				if ((option < 0) || (option > 5)) {
 					throw new Exception("\nNenhuma opção selecionada");
 				} else {
 					i = true ;
